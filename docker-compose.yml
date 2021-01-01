@@ -4,6 +4,8 @@ services:
 
   memento:
     container_name: memento
+    tty: true
+    stdin_open: true
     build:
       context: .
       dockerfile: Dockerfile
