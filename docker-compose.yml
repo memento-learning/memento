@@ -17,7 +17,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
   memento-backend:
     depends_on:
-        - db
+        - migrate
     container_name: memento-backend
     tty: true
     stdin_open: true
@@ -47,4 +47,16 @@ services:
       MYSQL_PASSWORD: ${DB_PASS}
     ports:
       - "3306:3306"
-
+  migrate:
+    container_name: migrate
+    tty: true
+    stdin_open: true
+    build:
+      context: db
+      dockerfile: 'Dockerfile'
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_HOST: 'jdbc:mysql://db:3306/memento'
+    command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "flyway", "migrate"]
