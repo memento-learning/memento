@@ -2,6 +2,6 @@
 build:
 	docker build -t memento:dev .
 run:
-	docker-compose up
+	docker-compose up --build
 down:
 	docker-compose down

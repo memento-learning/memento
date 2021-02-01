@@ -5,14 +5,14 @@ import './App.css';
 class App extends Component {
 
   state = {
-    message: "Gathass"
+    message: "Hello Gathass from UI!"
   }
 
   componentDidMount() {
     fetch('/api/hello')
-      .then(res => res.body)
+      .then(res => res.text())
       .then((data) => {
-        this.setState({ contacts: data })
+        this.setState({ message: data })
       })
   }
   render() {
