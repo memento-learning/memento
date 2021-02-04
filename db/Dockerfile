@@ -1,8 +1,8 @@
 # pull official base image
 FROM flyway/flyway
 
-COPY *.sql /flyway/sql/
-COPY flyway.conf /flyway/conf/
+COPY ./sql/*.sql /flyway/sql/
+COPY ./conf/flyway.conf /flyway/conf/
 COPY ./wait-for-it.sh ./
 
 ENTRYPOINT []

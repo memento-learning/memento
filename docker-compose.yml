@@ -40,6 +40,8 @@ services:
     image: mysql:5.7
     restart: always
     container_name: db
+    volumes:
+      - './db/data:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
       MYSQL_DATABASE: memento

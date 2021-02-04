@@ -4,4 +4,4 @@ CREATE TABLE test (
 );
 
 INSERT INTO test
-VALUES (0, 'hello gathass from the database');
+VALUES (0, 'hello gathasss from the database');
