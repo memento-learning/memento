@@ -1,7 +1,12 @@
-CREATE TABLE test (
-    id INT,
-    message VARCHAR(255)
+CREATE TABLE User(
+    user_id int PRIMARY KEY
 );
 
-INSERT INTO test
-VALUES (0, 'hello gathasss from the database');
+CREATE TABLE Deck (
+    deck_id int PRIMARY KEY
+);
+
+
+CREATE TABLE UserDeck (
+    user_id int
+);
