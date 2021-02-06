@@ -37,5 +37,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://memento-backend:4000/"
+  "proxy": "http://memento-backend:4000/",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.22.0"
+  }
 }

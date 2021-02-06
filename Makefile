@@ -9,3 +9,20 @@ migrate:
 	docker-compose run migrate
 migrate-clean:
 	docker-compose run migrate flyway clean
+lint:
+	{\
+		echo '\n-------Linting backend files-------';\
+		cd backend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/;\
+		cd ..;\
+		echo '\n\n-------Linting frontend files-------';\
+		cd frontend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/;\
+	}
+autofix:
+	{\
+		echo '\n-------Fixing backend files-------';\
+		cd backend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/ --fix;\
+		cd ..;\
+		echo '\n\n-------Fixing frontend files-------';\
+		cd frontend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/ --fix;\
+	}
+	
