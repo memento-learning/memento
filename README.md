@@ -9,7 +9,8 @@ Memento is a program which makes remembering things easy. Using unique learning 
 3. Run `make build` and verify that the files have built properly.
 4. Run `make run`
 5. You should see a react splash page @ http://localhost:3000 if everything worked
-6. Run `make down` to stop services
+6. Run `docker logs -f <service_name>` to stream logs from a specific service
+7. Run `make down` to stop services
 
 ## Dev Structure
 Currently the project runs multiple docker environments for each 'service'. We have the frontend, backend, database, and migration service. The frontend service has the ui, backened has node code, and the migration service inits the schemas and data to our database.
