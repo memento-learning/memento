@@ -51,6 +51,9 @@ services:
       - "3306:3306"
   migrate:
     container_name: migrate
+    volumes:
+      - './db/conf:/flyway/conf'
+      - './db/sql:/flyway/sql'
     tty: true
     stdin_open: true
     build:
