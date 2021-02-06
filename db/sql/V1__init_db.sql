@@ -45,3 +45,8 @@ VALUES ('spanish');
 
 INSERT INTO UserDeck (user_id, deck_id)
 VALUES (1, 1);
+
+INSERT INTO Item (deck_id, question, answer)
+VALUES 
+    (1, 'hola', 'hello'),
+    (1, 'mundo', 'world');
