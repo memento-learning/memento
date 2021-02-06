@@ -9,6 +9,8 @@ migrate:
 	docker-compose run migrate
 migrate-clean:
 	docker-compose run migrate flyway clean
+mshell:
+	docker-compose run migrate bash
 lint:
 	{\
 		echo '\n-------Linting backend files-------';\
