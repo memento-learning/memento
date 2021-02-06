@@ -12,6 +12,9 @@ backend/node_modules/
 # production
 /build
 
+# persist db
+db/data
+
 # misc
 .DS_Store
 .env.local
@@ -24,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+.env
