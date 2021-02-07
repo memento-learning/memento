@@ -1,3 +1,4 @@
+-- Table Schema Definitions
 CREATE TABLE User(
     PRIMARY KEY (user_id),
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -31,22 +32,34 @@ CREATE TABLE Item (
 CREATE TABLE UserItem (
     user_id INT NOT NULL,
     item_id INT NOT NULL,
-    num_reviewed INT DEFAULT 0,
+    num_repetitions INT DEFAULT 0,
+    easiness FLOAT  DEFAULT 2.5,
+    rep_interval FLOAT DEFAULT 1.0,
     FOREIGN KEY (user_id) REFERENCES User(user_id),
     FOREIGN KEY (item_id) REFERENCES Item(item_id),
     UNIQUE (user_id, item_id)
 );
 
+-- Dummy Data Insertion
 INSERT INTO User (username, password)
 VALUES ('gathass', 'iamgathass');
+SET @dummy_user_id = LAST_INSERT_ID();
 
 INSERT INTO Deck (name)
 VALUES ('spanish');
+SET @dummy_deck_id = LAST_INSERT_ID();
 
 INSERT INTO UserDeck (user_id, deck_id)
-VALUES (1, 1);
+VALUES (@dummy_user_id , @dummy_deck_id);
 
 INSERT INTO Item (deck_id, question, answer)
 VALUES 
-    (1, 'hola', 'hello'),
-    (1, 'mundo', 'world');
+    (@dummy_deck_id, 'hola', 'hello'),
+    (@dummy_deck_id, 'mundo', 'world');
+
+INSERT INTO UserItem(user_id, item_id)
+SELECT 
+    @dummy_user_id, 
+    item_id
+FROM Item
+WHERE deck_id = @dummy_deck_id;
