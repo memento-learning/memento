@@ -29,6 +29,7 @@ CREATE TABLE Item (
     answer VARCHAR(100)
 );
 
+-- Many to Many User Item with user specific item features for algorithim
 CREATE TABLE UserItem (
     user_id INT NOT NULL,
     item_id INT NOT NULL,
