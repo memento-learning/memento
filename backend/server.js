@@ -23,9 +23,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/api/hello', (req, res) => {
-  con.query('SELECT message FROM test LIMIT 1', function(err, result, fields) {
+  con.query('SELECT username FROM User LIMIT 1', function(err, result, fields) {
     if (err) throw err;
-    res.send(result[0].message + ' and server');
+    res.send(result[0].username + ' says hi from database and server');
   });
 });
 
