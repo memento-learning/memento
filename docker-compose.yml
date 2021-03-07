@@ -35,7 +35,9 @@ services:
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       DB_HOST: 'db'
-    command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "nodemon", "server"]
+      PORT: 4000
+      SECRET: ${SECRET}
+    command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "nodemon", "--exec", "babel-node --experimental-specifier-resolution=node", "server.js"]
   db:
     image: mysql:5.7
     restart: always

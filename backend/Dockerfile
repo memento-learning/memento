@@ -18,4 +18,4 @@ RUN chmod +x wait-for-it.sh
 ENV PATH /app/node_modules/.bin:$PATH
 
 # start app
-CMD ["nodemon", "server"]
+CMD ["nodemon", "--exec", "babel-node", "server.js"]
