@@ -65,3 +65,18 @@ services:
       DB_PASS: ${DB_PASS}
       DB_HOST: 'jdbc:mysql://db:3306/memento'
     command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "flyway", "migrate"]
+  
+  engine:
+    container_name: engine
+    tty: true
+    stdin_open: true
+    restart: always
+    build:
+      context: engine
+      dockerfile: 'Dockerfile'
+    volumes:
+      - './engine:/var/backend'
+    ports:
+      - 5000:5000
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
