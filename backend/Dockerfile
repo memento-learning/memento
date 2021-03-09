@@ -3,11 +3,12 @@ FROM node:12.20.0
 
 WORKDIR /app
 
-RUN npm install -g nodemon
+RUN yarn global add nodemon
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install
+RUN yarn install
 
 # add app
 COPY . /app

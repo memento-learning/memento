@@ -9,7 +9,7 @@ export default class User extends Model {
 
   static async getOne() {
     const [rows] = await User.connection.query('SELECT * FROM User LIMIT 1');
-    if(rows.length == 0){
+    if (rows.length === 0) {
       return null;
     }
     return new User(rows[0]);
@@ -18,7 +18,7 @@ export default class User extends Model {
   static async getByUsername(username) {
     const query = 'SELECT * FROM User WHERE username = ?';
     const [rows] = await Model.connection.query(query, [username]);
-    if(rows.length == 0){
+    if (rows.length === 0) {
       return null;
     }
     return new User(rows[0]);
@@ -27,7 +27,7 @@ export default class User extends Model {
   static async getById(id) {
     const query = 'SELECT * FROM User WHERE user_id = ?';
     const [rows] = await Model.connection.query(query, [id]);
-    if(rows.length == 0){
+    if (rows.length === 0) {
       return null;
     }
     return new User(rows[0]);

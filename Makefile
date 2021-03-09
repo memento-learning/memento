@@ -14,17 +14,15 @@ mshell:
 lint:
 	{\
 		echo '\n-------Linting backend files-------';\
-		cd backend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/;\
-		cd ..;\
+		backend/node_modules/.bin/eslint "backend/**/*.js" --ignore-pattern node_modules/;\
 		echo '\n\n-------Linting frontend files-------';\
-		cd frontend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/;\
+		frontend/node_modules/.bin/eslint "frontend/**/*.js" --ignore-pattern node_modules/;\
 	}
 autofix:
 	{\
-		echo '\n-------Fixing backend files-------';\
-		cd backend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/ --fix;\
-		cd ..;\
-		echo '\n\n-------Fixing frontend files-------';\
-		cd frontend && ./node_modules/.bin/eslint "**/*.js" --ignore-pattern node_modules/ --fix;\
+		echo '\n-------Linting backend files-------';\
+		backend/node_modules/.bin/eslint "backend/**/*.js" --ignore-pattern node_modules/ --fix;\
+		echo '\n\n-------Linting frontend files-------';\
+		frontend/node_modules/.bin/eslint "frontend/**/*.js" --ignore-pattern node_modules/ --fix;\
 	}
 	
