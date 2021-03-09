@@ -8,7 +8,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/hello')
+    fetch('/api/auth/hello')
         .then((res) => res.text())
         .then((data) => {
           this.setState({message: data});

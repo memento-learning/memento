@@ -1,15 +1,20 @@
 {
     "env": {
-        "browser": true,
+        "node": true,
         "commonjs": true,
         "es2021": true
     },
     "extends": [
-        "google"
+        "airbnb-base"
     ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 12
+        "babelOptions": {
+            "configFile":"./backend/.babelrc.json"
+        }
     },
     "rules": {
+        "no-console": "off",
+        "global-require": "off"
     }
 }

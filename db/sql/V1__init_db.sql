@@ -2,8 +2,8 @@
 CREATE TABLE User(
     PRIMARY KEY (user_id),
     user_id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(20),
-    password VARCHAR(20)
+    username VARCHAR(20) UNIQUE,
+    password CHAR(60)
 );
 
 CREATE TABLE Deck (
@@ -40,27 +40,3 @@ CREATE TABLE UserItem (
     FOREIGN KEY (item_id) REFERENCES Item(item_id),
     UNIQUE (user_id, item_id)
 );
-
--- Dummy Data Insertion
-INSERT INTO User (username, password)
-VALUES ('gathass', 'iamgathass');
-SET @dummy_user_id = LAST_INSERT_ID();
-
-INSERT INTO Deck (name)
-VALUES ('spanish');
-SET @dummy_deck_id = LAST_INSERT_ID();
-
-INSERT INTO UserDeck (user_id, deck_id)
-VALUES (@dummy_user_id , @dummy_deck_id);
-
-INSERT INTO Item (deck_id, question, answer)
-VALUES 
-    (@dummy_deck_id, 'hola', 'hello'),
-    (@dummy_deck_id, 'mundo', 'world');
-
-INSERT INTO UserItem(user_id, item_id)
-SELECT 
-    @dummy_user_id, 
-    item_id
-FROM Item
-WHERE deck_id = @dummy_deck_id;
