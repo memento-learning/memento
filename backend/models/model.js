@@ -12,4 +12,8 @@ export default class Model {
   serialize(obj) {
     return Object.assign(this, obj);
   }
+
+  static serializeRecords(records, model) {
+    new model();
+  }
 }
