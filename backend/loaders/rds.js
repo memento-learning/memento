@@ -1,13 +1,13 @@
 import mysql from 'mysql2/promise';
 import model from '../models/model';
 
-export default async () => {
+export default async (config = {}) => {
   try {
     const connnection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: 'memento',
+      host: config.DB_HOST || process.env.DB_HOST,
+      user: config.DB_USER || process.env.DB_USER,
+      password: config.DB_PASS || process.env.DB_PASS,
+      database: config.DB_NAME || process.env.DB_NAME,
     });
 
     model.setConnection(connnection);
