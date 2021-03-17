@@ -32,4 +32,9 @@ export default class User extends Model {
     }
     return new User(rows[0]);
   }
+
+  async delete() {
+    const query = 'DELETE FROM User WHERE user_id = ?';
+    await Model.connection.query(query, [this.user_id]);
+  }
 }
