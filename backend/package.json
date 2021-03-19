@@ -38,6 +38,6 @@
   },
   "type": "module",
   "jest": {
-    "setupFiles" : ["./tests/jest.init.js"]
+    "setupFilesAfterEnv" : ["./tests/jest.init.js"]
   }
 }

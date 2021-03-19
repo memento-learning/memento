@@ -15,8 +15,8 @@ CREATE TABLE Deck (
 CREATE TABLE UserDeck (
     user_id INT NOT NULL,
     deck_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User(user_id),
-    FOREIGN KEY (deck_id) REFERENCES Deck(deck_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (deck_id) REFERENCES Deck(deck_id) ON DELETE CASCADE,
     UNIQUE (user_id, deck_id)
 );
 

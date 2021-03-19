@@ -1,10 +1,4 @@
-import { async } from 'regenerator-runtime';
-import rds from '../loaders/rds';
 import User from '../models/user';
-
-beforeAll(async () => {
-  await rds();
-});
 
 describe('User Model', () => {
   const user = new User({ username: 'foo', password: 'bar' });
