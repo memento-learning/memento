@@ -1,4 +1,3 @@
-
 import User from '../models/user';
 import Deck from '../models/deck';
 
@@ -25,5 +24,12 @@ describe('Deck Model', () => {
     const sameUser = await User.getById(user.user_id);
     expect(sameDeck).toBeFalsy();
     expect(sameUser).toBeTruthy();
+    const [rows] = await Deck.connection.query('SELECT * FROM UserDeck');
+    expect(rows.length).toBe(0);
+  });
+
+  afterAll(async () => {
+    await user.delete();
+    await deck.delete();
   });
 });

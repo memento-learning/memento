@@ -7,5 +7,5 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    await Model.connection.end();
+  await Model.connection.end();
 });

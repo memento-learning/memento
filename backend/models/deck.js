@@ -22,7 +22,7 @@ export default class Deck extends Model {
     return rows.map((row) => new Deck(row));
   }
 
-  static async getById(deckId){
+  static async getById(deckId) {
     const query = 'SELECT * FROM Deck WHERE deck_id = ?';
     const [rows] = await Model.connection.query(query, [deckId]);
     if (rows.length === 0) {
