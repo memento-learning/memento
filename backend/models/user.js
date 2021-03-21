@@ -8,7 +8,7 @@ export default class User extends Model {
   }
 
   static async getOne() {
-    const [rows] = await User.connection.query('SELECT * FROM User LIMIT 1');
+    const [rows] = await Model.connection.query('SELECT * FROM User LIMIT 1');
     if (rows.length === 0) {
       return null;
     }

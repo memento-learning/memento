@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel server.js -d dist",
     "start": "npm run build && nodemon dist/server.js",
-    "test": "jest --forceExit"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +38,6 @@
   },
   "type": "module",
   "jest": {
-    "setupFiles" : ["./tests/jest.init.js"]
+    "setupFilesAfterEnv" : ["./tests/jest.init.js"]
   }
 }
