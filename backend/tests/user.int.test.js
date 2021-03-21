@@ -1,7 +1,8 @@
 import User from '../models/user';
 
 describe('User Model', () => {
-  const user = new User({ username: 'foo', password: 'bar' });
+  const randomUsername = Math.random().toString(36).substring(10);
+  const user = new User({ username: randomUsername, password: 'bar' });
   test('User Create', async () => {
     await user.create();
     expect(user.user_id).toBeTruthy();

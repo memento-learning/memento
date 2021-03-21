@@ -2,7 +2,8 @@ import User from '../models/user';
 import Deck from '../models/deck';
 
 describe('Deck Model', () => {
-  const user = new User({ username: 'foo', password: 'bar' });
+  const randomUsername = Math.random().toString(36).substring(10);
+  const user = new User({ username: randomUsername, password: 'bar' });
   const deck = new Deck({ name: 'Spanish' });
 
   test('Deck Create', async () => {
