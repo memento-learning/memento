@@ -18,6 +18,7 @@ services:
   backend:
     depends_on:
         - migrate
+        - db
     container_name: backend
     tty: true
     stdin_open: true
@@ -35,13 +36,18 @@ services:
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       DB_HOST: 'db'
-    command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "nodemon", "server"]
+      DB_NAME: 'memento'
+      PORT: 4000
+      SECRET: ${SECRET}
+      NODE_OPTIONS: "--experimental-specifier-resolution=node"
+    command: ["./wait-for-it.sh" , "db:3306" , "--strict" , "--timeout=300" , "--", "nodemon", "--exec", "babel-node", "server.js"]
   db:
     image: mysql:5.7
     restart: always
     container_name: db
     volumes:
       - './db/data:/var/lib/mysql'
+      - './db/startup:/docker-entrypoint-initdb.d'
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
       MYSQL_DATABASE: memento

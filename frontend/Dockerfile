@@ -3,9 +3,10 @@ FROM node:12.20.0
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install
+RUN yarn install
 
 # add app
 COPY . /app
@@ -14,4 +15,4 @@ COPY . /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # start app
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

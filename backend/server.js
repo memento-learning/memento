@@ -1,34 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const mysql = require('mysql');
+import express from 'express';
+import loader from './loaders';
 
-const app = express();
-const PORT = 4000;
+async function startServer() {
+  const app = express();
 
-const con = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: 'memento',
-});
+  await loader(app);
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log('Connected!');
-});
-
-app.use(cors());
-// parse requests of content-type: application/json
-app.use(bodyParser.json());
-
-app.get('/api/hello', (req, res) => {
-  con.query('SELECT username FROM User LIMIT 1', function(err, result, fields) {
-    if (err) throw err;
-    res.send(result[0].username + ' says hi from database and server');
+  app.listen(process.env.PORT, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(`Server is running on port: ${process.env.PORT}`);
   });
-});
+}
 
-app.listen(PORT, function() {
-  console.log('Server is running on Port: ' + PORT);
-});
+startServer();
