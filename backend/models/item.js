@@ -21,8 +21,15 @@ export default class Item extends Model {
       throw err;
     }
   }
-  async delete(){
-    const itemQuery = 'DELETE FROM Item WHERE item_id = ?';
-    await Model.connection.query(itemQuery, [this.item_id]);
+
+  static async getDeckItems(deckId) {
+    const query = 'SELECT * FROM Item WHERE deck_id = ?';
+    const [rows] = await Model.connection.query(query, [deckId]);
+    return rows.map((row) => new Item(row));
+  }
+
+  async delete() {
+    const query = 'DELETE FROM Item WHERE item_id = ?';
+    await Model.connection.query(query, [this.item_id]);
   }
 }

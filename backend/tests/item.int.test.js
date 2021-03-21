@@ -24,6 +24,12 @@ describe('Deck Model', () => {
     expect(rows[0].user_id).toBe(user.user_id);
   });
 
+  test('Get Deck Items', async () => {
+    const items = await Item.getDeckItems(deck.deck_id);
+    expect(items.length).toBe(1);
+    expect(items[0].item_id).toBe(item.item_id);
+  });
+
   test('Delete Item', async () => {
     await item.delete();
     let [rows] = await Item.connection.query('SELECT * FROM Item');
