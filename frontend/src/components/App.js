@@ -1,17 +1,37 @@
+import {
+  BrowserRouter, Redirect, Route, Switch,
+} from 'react-router-dom';
+import {
+  Button,
+} from 'antd';
+
+import { useDispatch } from 'react-redux';
+import { logout } from '../reducers/authSlice';
 import DeckList from './DeckList';
-import DeckPreview from './DeckPreview';
-import Deck from './Deck';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from './Login';
+import Signup from './Signup';
+import 'antd/dist/antd.css';
+
+import PrivateRoute from './PrivateRoute';
 
 function App() {
+  const dispatch = useDispatch();
   return (
-    <main>
+    <BrowserRouter>
       <Switch>
-        <Route path="/" component={DeckList} exact />
-        <Route path="/Deck" component={Deck} exact />
+        <Route path="/login" component={Login} exact />
+        <Route path="/signup" component={Signup} exact />
+        <PrivateRoute path="/">
+          <div style={{ float: 'right', padding: '20px' }}>
+            <Button danger onClick={() => dispatch(logout())}>Logout</Button>
+          </div>
+
+          <Route path="/decks" component={DeckList} exact />
+          <Redirect to="/decks" />
+        </PrivateRoute>
         <Route component={Error} />
       </Switch>
-    </main>
+    </BrowserRouter>
   );
 }
 

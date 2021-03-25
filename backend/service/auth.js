@@ -15,6 +15,9 @@ class AuthService {
 
   static async login(username, rawPassword) {
     const user = await User.getByUsername(username);
+    if (user == null) {
+      throw Error('User does not exist');
+    }
     if (!bcrypt.compareSync(rawPassword, user.password)) {
       throw Error('Incorrect password');
     }
