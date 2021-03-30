@@ -1,4 +1,4 @@
-function Deck(props) {
+function Deck() {
   return (
     <ul><li>Tejas</li></ul>
 

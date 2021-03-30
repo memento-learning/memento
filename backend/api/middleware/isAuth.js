@@ -1,11 +1,13 @@
 import AuthService from '../../service/auth';
 
 export default async (req, res, next) => {
-  if (req.cookies.token) {
+  const bearerHeader = req.headers.authorization;
+  if (bearerHeader) {
     try {
-      const { token } = req.cookies;
+      const token = bearerHeader.split(' ')[1];
       const user = await AuthService.authenticate(token);
       if (user) {
+        req.user = user;
         return next();
       }
     } catch (e) {

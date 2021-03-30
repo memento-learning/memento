@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-// import Card from "react-bootstrap/Card";
 import './index.css';
-// import DeckList from './components/DeckList';
-import App from './components/App';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import axios from 'axios';
+import { Provider } from 'react-redux';
 
+import App from './components/App';
+import store from './store';
+
+axios.defaults.withCredentials = true;
 
 ReactDom.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
-    document.getElementById('root'));
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);
