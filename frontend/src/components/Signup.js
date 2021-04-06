@@ -31,8 +31,11 @@ function Signup() {
   async function onFinish(formData) {
     try {
       await authApi.signup(formData.username, formData.password);
-      setRedirectLogin(true);
+
+      dispatch(actions.clearError());
+      dispatch(actions.clearMessage());
       dispatch(actions.message('Signup success!'));
+      setRedirectLogin(true);
     } catch (err) {
       setFlash({ message: 'Signup failed!' });
     }

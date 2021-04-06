@@ -9,7 +9,8 @@ CREATE TABLE User(
 CREATE TABLE Deck (
     PRIMARY KEY(deck_id),
     deck_id INT NOT NULL AUTO_INCREMENT, 
-    name VARCHAR(20)
+    name VARCHAR(20),
+    description VARCHAR(200)
 );
 
 CREATE TABLE UserDeck (
