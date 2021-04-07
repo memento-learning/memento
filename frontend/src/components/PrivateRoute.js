@@ -12,8 +12,6 @@ function PrivateRoute({ children, ...rest }) {
   try {
     const { exp } = jwtDecode(token);
     const now = Math.round(Date.now() / 1000);
-    console.log(exp);
-    console.log(now);
     if (exp - now > 60) {
       valid = true;
     } else {
