@@ -13,7 +13,7 @@ function DeckGrid({ list, columns = 3 }) {
     </Col>
   ));
   return (
-    <Row gutter={16} type="flex">
+    <Row gutter={[16, 16]} type="flex">
       {cols}
     </Row>
   );

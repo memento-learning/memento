@@ -1,42 +1,41 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
 import {
   Typography, Button, Modal, Form, Input, Alert,
 } from 'antd';
-import { selectDecks, loadDecks } from '../reducers/deckSlice';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import DeckGrid from './DeckGrid';
 import deckApi from '../api/deck';
 
 const { Title } = Typography;
 
 function MyDecks() {
-  const decks = useSelector(selectDecks) || [];
-  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalFlash, setModalFlash] = useState(null);
   const [form] = Form.useForm();
 
-  const onSubmit = useCallback(async (formData) => {
-    try {
-      await deckApi.createDeck(formData.name, formData.description);
-      setModalVisible(false);
-      form.resetFields();
-      dispatch(loadDecks());
-    } catch (err) {
-      setModalFlash({ message: 'Cannot create deck.' });
-    }
-  }, [form, dispatch]);
+  const queryClient = useQueryClient();
+  const { data: decks } = useQuery('userDecks', deckApi.getDecks, {
+    initialData: [],
+  });
+
+  const { mutate: createDeckMutate, isError: createDeckError } = useMutation(
+    deckApi.createDeck,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('userDecks');
+        form.resetFields();
+        setModalVisible(false);
+      },
+    },
+  );
+
+  const onSubmit = (formData) => createDeckMutate(formData);
 
   const onCancel = useCallback(() => {
     setModalVisible(false);
     form.resetFields();
   }, [form]);
 
-  useEffect(() => {
-    dispatch(loadDecks());
-  }, [dispatch]);
-
-  const flash = <Alert message={modalFlash ? modalFlash.message : ''} type="error" />;
+  const flash = <Alert message={createDeckError ? 'Error creating deck!' : ''} type="error" />;
 
   const layout = {
     labelCol: { span: 5 },
@@ -86,10 +85,10 @@ function MyDecks() {
           >
             <Input.TextArea />
           </Form.Item>
-          {modalFlash ? flash : null}
+          {createDeckError ? flash : null}
         </Form>
       </Modal>
-      <div style={{ padding: '25px 0px' }}><DeckGrid list={decks} /></div>
+      <div style={{ padding: '25px 0px' }}><DeckGrid list={decks || []} /></div>
 
     </div>
   );

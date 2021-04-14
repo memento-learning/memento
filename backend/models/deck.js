@@ -31,6 +31,20 @@ export default class Deck extends Model {
     return new Deck(rows[0]);
   }
 
+  static async getByIdProtected(deckId, userId) {
+    const query = `SELECT
+    Deck.*
+    FROM Deck JOIN UserDeck ON Deck.deck_id = UserDeck.deck_id
+    WHERE user_id = ?
+    AND Deck.deck_id = ?
+  `;
+    const [rows] = await Model.connection.query(query, [userId, deckId]);
+    if (rows.length === 0) {
+      return null;
+    }
+    return new Deck(rows[0]);
+  }
+
   async delete() {
     const query = 'DELETE FROM Deck WHERE deck_id = ?';
     await Model.connection.query(query, [this.deck_id]);

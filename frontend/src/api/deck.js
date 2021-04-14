@@ -1,12 +1,17 @@
 import axios from 'axios';
 
 async function getDecks() {
-  const response = await axios.get('/api/deck/');
-  return response.data;
+  const { data } = await axios.get('/api/deck/');
+  return data;
 }
 
-async function createDeck(name, description) {
-  await axios.post('/api/deck/create', { name, description });
+function createDeck({ name, description }) {
+  return axios.post('/api/deck/create', { name, description });
 }
 
-export default { getDecks, createDeck };
+async function getDeck(id) {
+  const { data } = await axios.get(`/api/deck/${id}`);
+  return data;
+}
+
+export default { getDecks, createDeck, getDeck };
