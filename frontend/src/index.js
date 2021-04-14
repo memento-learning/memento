@@ -5,6 +5,7 @@ import './index.css';
 import axios from 'axios';
 import { Provider } from 'react-redux';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './components/App';
 import store from './store';
 import { logout } from './reducers/authSlice';
@@ -23,12 +24,16 @@ axios.interceptors.response.use((response) => response, (error) => {
   if (error.response.status === 401) {
     store.dispatch(logout());
   }
-  return error;
+  return Promise.reject(error);
 });
+const client = new QueryClient();
 
 ReactDom.render(
   <Provider store={store}>
-    <App />
+    <QueryClientProvider client={client}>
+      {' '}
+      <App />
+    </QueryClientProvider>
   </Provider>,
   document.getElementById('root'),
 );

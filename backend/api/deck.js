@@ -1,18 +1,32 @@
 import { Router } from 'express';
 import isAuth from './middleware/isAuth';
 import Deck from '../models/deck';
+import DeckService from '../service/deck';
 
 const router = Router();
 router.use(isAuth);
 
 router.get('/', async (req, res, next) => {
   try {
-    const decks = await Deck.userDecks(req.user.user_id);
+    const decks = await DeckService.getUserDecks(req.user);
     res.status(200).send(decks);
-    return next();
   } catch (err) {
     return next(err);
   }
+  return next();
+});
+
+router.get('/:deckId(\\d+)', async (req, res, next) => {
+  if (req.params.deckId) {
+    try {
+      const deck = await DeckService.getDeckById(req.params.deckId, req.user);
+      res.status(200).send(deck);
+    } catch (err) {
+      res.sendStatus(403);
+      return next(err);
+    }
+  }
+  return next();
 });
 
 router.post('/create', async (req, res, next) => {
@@ -20,13 +34,12 @@ router.post('/create', async (req, res, next) => {
     if (!req.body.name) {
       throw Error('Must specify deck name');
     }
-    const deck = new Deck({ name: req.body.name, description: req.body.description });
-    await deck.create();
-    await Deck.addUser(deck.deck_id, req.user.user_id);
+    await DeckService.create(req.body.name, req.body.description, req.user);
     res.sendStatus(200);
     return next();
   } catch (err) {
     return next(err);
   }
 });
+
 export default router;
