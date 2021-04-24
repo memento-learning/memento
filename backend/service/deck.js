@@ -1,4 +1,5 @@
 import Deck from '../models/deck';
+import Item from '../models/item';
 
 class DeckService {
   static async create(name, description, user) {
@@ -21,8 +22,20 @@ class DeckService {
       }
       throw Error('This deck does not exist.');
     } else {
-      return deck;
+      const items = await Item.getDeckItems(deck.deck_id);
+      return { ...deck, items };
     }
+  }
+
+  static async editDeckItems(deckId, items, deleted) {
+    const insertItems = items.filter(({ item_id: itemId }) => !itemId);
+    const updateItems = items.filter(({ item_id: itemId }) => itemId);
+    const insert = Item.insertItems(insertItems, deckId);
+    const update = Item.updateItems(updateItems, deckId);
+    const del = Item.deleteItems(deleted);
+    await insert;
+    await update;
+    await del;
   }
 }
 
