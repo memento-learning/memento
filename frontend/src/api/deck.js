@@ -14,4 +14,10 @@ async function getDeck(id) {
   return data;
 }
 
-export default { getDecks, createDeck, getDeck };
+async function editDeckItems(deckId, items) {
+  await axios.put(`/api/deck/${deckId}/edit`, items);
+}
+
+export default {
+  getDecks, createDeck, getDeck, editDeckItems,
+};

@@ -1,7 +1,7 @@
 import {
   BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
-
+import { useEffect } from 'react';
 import AppContainer from './AppContainer';
 
 import Login from './Login';
@@ -13,26 +13,32 @@ import PrivateRoute from './PrivateRoute';
 import MyDecks from './MyDecks';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/login" component={Login} exact />
-        <Route path="/signup" component={Signup} exact />
-        <PrivateRoute path="/">
-          <AppContainer>
-            <Switch>
-              <Route path="/decks" component={MyDecks} exact />
-              <Route path="/deck/:id" component={Deck} exact />
-              <Route path="*" exact>
-                <Redirect to="/decks" />
-              </Route>
-            </Switch>
-          </AppContainer>
+  useEffect(() => {
+    document.title = 'Memento';
+  }, []);
 
-        </PrivateRoute>
-        <Route component={Error} />
-      </Switch>
-    </BrowserRouter>
+  return (
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} exact />
+          <Route path="/signup" component={Signup} exact />
+          <PrivateRoute path="/">
+            <AppContainer>
+              <Switch>
+                <Route path="/decks" component={MyDecks} exact />
+                <Route path="/deck/:id" component={Deck} exact />
+                <Route path="*" exact>
+                  <Redirect to="/decks" />
+                </Route>
+              </Switch>
+            </AppContainer>
+
+          </PrivateRoute>
+          <Route component={Error} />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 

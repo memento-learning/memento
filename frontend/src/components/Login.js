@@ -44,6 +44,7 @@ function Login() {
   } else if (message) {
     flashComponent = <Alert message={message} type="success" />;
   }
+
   return (
     <Row type="flex" justify="center" align="middle" style={{ minHeight: '100vh' }}>
       <Form

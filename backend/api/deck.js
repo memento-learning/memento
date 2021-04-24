@@ -29,6 +29,18 @@ router.get('/:deckId(\\d+)', async (req, res, next) => {
   return next();
 });
 
+router.put('/:deckId(\\d+)/edit', async (req, res, next) => {
+  if (req.params.deckId) {
+    try {
+      await DeckService.editDeckItems(req.params.deckId, req.body.items, req.body.deleted);
+      res.sendStatus(201);
+    } catch (err) {
+      return next(err);
+    }
+  }
+  return next();
+});
+
 router.post('/create', async (req, res, next) => {
   try {
     if (!req.body.name) {
